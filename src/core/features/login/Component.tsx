@@ -1,16 +1,23 @@
 import React from "react";
 import { Login } from "core/features/login/Component.styles";
 import { GlobalLayout } from "core/components/Layout/GlobalLayout";
+import { connect } from "react-redux";
 import LoginForm from "./LoginForm";
 
-const Component = () => {
+const Component = (props: any) => {
   return (
     <GlobalLayout>
       <Login>
-        <LoginForm/>
+        <LoginForm />
       </Login>
     </GlobalLayout>
   );
 };
 
-export default Component;
+function mapStateToProps(state: any) {
+  return {
+    isLoggedIn : state.loginReducer.isLoggedIn
+  };
+}
+
+export default connect(mapStateToProps)(Component);

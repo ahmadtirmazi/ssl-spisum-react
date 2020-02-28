@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, TextField } from "@material-ui/core";
+import { loginAction } from "./_actions";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -11,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const LoginForm = () => {
+const LoginForm = (props: any) => {
   const classes = useStyles();
 
   const [username, setUsername] = useState("");
@@ -19,8 +21,9 @@ const LoginForm = () => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    console.log(username);
-    console.log(password);
+    props.loginAction(username, password);
+    setUsername("");
+    setPassword("");
   };
 
   return (
@@ -51,4 +54,12 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+const dispatchProps = {
+  loginAction: loginAction
+};
+
+type Props = {
+  loginAction: (username: string, password: string) => void;
+};
+
+export default connect(null, dispatchProps)(LoginForm);

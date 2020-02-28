@@ -2,7 +2,9 @@ import { LoginStateType } from "./_types";
 import { getType } from "typesafe-actions";
 import { loginAction, LoginActionType } from "./_actions";
 
-const initialState: LoginStateType = {};
+const initialState: LoginStateType = {
+  isLoggedIn: false
+};
 
 export default (
   state: LoginStateType = initialState,
@@ -10,8 +12,10 @@ export default (
 ): LoginStateType => {
   switch (action.type) {
     case getType(loginAction):
+      let { username, password } = action.payload;
       return {
-        ...state
+        ...state,
+        isLoggedIn: username === "admin" && password === "admin" ? true : false
       };
 
     default:
