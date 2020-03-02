@@ -3,7 +3,13 @@ import { ActionType, createAction, action } from "typesafe-actions";
 export const loginAction = createAction(
   "@login/LOGIN_ACTION",
   (username: string, password: string) => {
-    return { username, password };
+    if (username === "admin" && password === "admin") {
+      localStorage.setItem("isLoggedIn", "true");
+      return { isValid: true, error: "" };
+    } else {
+      localStorage.removeItem("isLoggedIn");
+      return { isValid: false, error: "Invalid credentials" };
+    }
   }
 )<any>();
 

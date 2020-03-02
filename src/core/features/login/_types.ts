@@ -1,3 +1,4 @@
 export interface LoginStateType {
-  isLoggedIn: Boolean
+  isLoggedIn: Boolean,
+  error: String
 }

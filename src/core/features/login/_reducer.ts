@@ -3,7 +3,8 @@ import { getType } from "typesafe-actions";
 import { loginAction, LoginActionType } from "./_actions";
 
 const initialState: LoginStateType = {
-  isLoggedIn: false
+  isLoggedIn: localStorage.getItem("isLoggedIn") ? true : false,
+  error: ""
 };
 
 export default (
@@ -12,10 +13,11 @@ export default (
 ): LoginStateType => {
   switch (action.type) {
     case getType(loginAction):
-      let { username, password } = action.payload;
+      let { isValid, error } = action.payload;
       return {
         ...state,
-        isLoggedIn: username === "admin" && password === "admin" ? true : false
+        isLoggedIn: isValid,
+        error
       };
 
     default:
