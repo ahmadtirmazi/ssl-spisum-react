@@ -9,15 +9,16 @@ import SimpleDialog from "core/components/dialog";
 import Button from "@material-ui/core/Button";
 
 const Component = (props: any) => {
-  const [isDialogOpen, setOpen] = React.useState(false);
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setIsDialogOpen(true);
   };
 
   const onDialogClose = () => {
     console.log("Dialog box closed");
-    setOpen(false);
+    setIsDialogOpen(false);
+
   };
 
   return (
@@ -34,8 +35,10 @@ const Component = (props: any) => {
             Open simple dialog
           </Button>
           <SimpleDialog
-            title="My dialog box"
-            content={<div style={{ textAlign: "center" }}>testcontent</div>}
+            title="Dialog with ReactNode"
+            isOpen={isDialogOpen}
+            onClose={onDialogClose}
+            content={<div style={{ textAlign: "center" }}>I am a ReactNode</div>}
             actions={[
               {
                 color: "default",
@@ -52,8 +55,6 @@ const Component = (props: any) => {
                 }
               }
             ]}
-            open={isDialogOpen}
-            onClose={onDialogClose}
           />
         </div>
       )}

@@ -1,5 +1,4 @@
 import React from "react";
-
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import { DialogActions, Button } from "@material-ui/core";
@@ -13,13 +12,13 @@ interface dialogActions {
 interface SimpleDialogProps {
   title?: string;
   content: string | React.ReactNode;
-  open?: boolean;
+  isOpen?: boolean;
   onClose: () => void;
   actions: dialogActions[];
 }
 
 const SimpleDialog = (props: SimpleDialogProps) => {
-  const { title, content, onClose, open = false, actions } = props;
+  const { title, content, onClose, isOpen = false, actions } = props;
 
   const handleClose = () => {
     onClose();
@@ -50,7 +49,7 @@ const SimpleDialog = (props: SimpleDialogProps) => {
     <Dialog
       onClose={handleClose}
       aria-labelledby="simple-dialog-title"
-      open={open}
+      open={isOpen}
     >
       {title && title.length ? (
         <DialogTitle id="simple-dialog-title">{title}</DialogTitle>
