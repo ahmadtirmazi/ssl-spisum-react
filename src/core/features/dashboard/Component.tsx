@@ -7,19 +7,17 @@ import { SignedLayout } from "core/components/Layout/SignedLayout";
 import SimpleDialog from "core/components/dialog";
 
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 
 const Component = (props: any) => {
-  const [open, setOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = React.useState();
+  const [isDialogOpen, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
-  const handleClose = (value: string) => {
+  const onDialogClose = () => {
+    console.log("Dialog box closed");
     setOpen(false);
-    setSelectedValue(value);
   };
 
   return (
@@ -28,26 +26,34 @@ const Component = (props: any) => {
         <Redirect to={CoreRoutes.LOGIN} />
       ) : (
         <div>
-          <Typography variant="subtitle1">Selected: {selectedValue}</Typography>
-          <br />
-          <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={handleClickOpen}
+          >
             Open simple dialog
           </Button>
           <SimpleDialog
             title="My dialog box"
-            content={<div style={{textAlign:"center"}}>testcontent</div>}
-
+            content={<div style={{ textAlign: "center" }}>testcontent</div>}
             actions={[
               {
-               color: "primary",
-               label: "Save Changes",
-               onClick: (e:any) => {console.log(e); }
+                color: "default",
+                label: "Cancel",
+                onClick: (e: React.MouseEvent) => {
+                  console.log("Click cancel", e);
+                }
+              },
+              {
+                color: "primary",
+                label: "Save Changes",
+                onClick: (e: React.MouseEvent) => {
+                  console.log("Clicked save", e);
+                }
               }
             ]}
-            open={open}
-            onClose={handleClose}
-
-            
+            open={isDialogOpen}
+            onClose={onDialogClose}
           />
         </div>
       )}
