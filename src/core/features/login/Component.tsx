@@ -15,6 +15,9 @@ const useStyles = makeStyles(theme => ({
     "& > *": {
       margin: theme.spacing(1),
       width: 200
+    },
+    "&": {
+      textAlign: "center"
     }
   }
 }));

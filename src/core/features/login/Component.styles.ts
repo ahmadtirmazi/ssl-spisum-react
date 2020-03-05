@@ -5,5 +5,9 @@ export const Login = styled("div")(() => ({
   border: "1px solid red",
   height: 400,
   margin: 10,
-  width: 400
+  width: 400,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  flexDirection: "column"
 }));
