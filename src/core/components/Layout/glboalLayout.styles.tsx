@@ -5,6 +5,10 @@ export const GlobalContainer = styled("div")(() => ({
   background: "rgb(7, 71, 166)",
   display: "flex",
   flexDirection: "column",
-  height: "100%",
-  justifyContent: "center"
+  justifyContent: "center",
+  position: "absolute",
+  left: 0,
+  right: 0,
+  top: 0,
+  bottom: 0
 }));
