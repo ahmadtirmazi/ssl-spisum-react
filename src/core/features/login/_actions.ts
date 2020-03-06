@@ -1,4 +1,4 @@
-import { ActionType, createAction, action } from "typesafe-actions";
+import { ActionType, createAction } from "typesafe-actions";
 
 export const loginAction = createAction(
   "@login/LOGIN_ACTION",
