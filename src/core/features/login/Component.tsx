@@ -2,28 +2,15 @@ import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { makeStyles } from "@material-ui/core/styles";
 import { Button, TextField } from "@material-ui/core";
 
 import { CoreRoutes } from "core/routes";
 import { GlobalLayout } from "core/components/Layout/GlobalLayout";
-import { Login } from "core/features/login/Component.styles";
+import { Login, getLoginFormStyles } from "core/features/login/Component.styles";
 import { loginAction } from "./_actions";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(1),
-      width: 200
-    },
-    "&": {
-      textAlign: "center"
-    }
-  }
-}));
-
 const Component = (props: any) => {
-  const classes = useStyles();
+  const classesLoginForm = getLoginFormStyles();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -37,13 +24,13 @@ const Component = (props: any) => {
   };
 
   return (
-    <GlobalLayout>
+    <GlobalLayout fillWindow={true}>
       {props.isLoggedIn ? (
         <Redirect to={CoreRoutes.DASHBOARD} />
       ) : (
         <Login>
           <form
-            className={classes.root}
+            className={classesLoginForm.root}
             noValidate
             autoComplete="off"
             onSubmit={event => handleSubmit(event)}
@@ -65,7 +52,7 @@ const Component = (props: any) => {
             />
 
             {props.error !== undefined && props.error.length ? (
-              <p>{props.error}</p>
+              <p id="errorMsg">{props.error}</p>
             ) : (
               <></>
             )}
