@@ -18,7 +18,6 @@ const Component = (props: any) => {
   const onDialogClose = () => {
     console.log("Dialog box closed");
     setIsDialogOpen(false);
-
   };
 
   return (
@@ -28,17 +27,20 @@ const Component = (props: any) => {
       ) : (
         <div>
           <Button
-            variant="outlined"
+            variant="contained"
             color="secondary"
             onClick={handleClickOpen}
           >
             Open simple dialog
           </Button>
+
           <SimpleDialog
             title="Dialog with ReactNode"
             isOpen={isDialogOpen}
             onClose={onDialogClose}
-            content={<div style={{ textAlign: "center" }}>I am a ReactNode</div>}
+            content={
+              <div style={{ textAlign: "center" }}>I am a ReactNode</div>
+            }
             actions={[
               {
                 color: "default",
@@ -49,9 +51,9 @@ const Component = (props: any) => {
               },
               {
                 color: "primary",
-                label: "Save Changes",
+                label: "OK",
                 onClick: (e: React.MouseEvent) => {
-                  console.log("Clicked save", e);
+                  console.log("Clicked OK", e);
                 }
               }
             ]}
