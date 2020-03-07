@@ -1,31 +1,39 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import { Button, TextField } from "@material-ui/core";
 
 import { CoreRoutes } from "core/routes";
+import { loginAction } from "./_actions";
+import { selectIsLoggedIn, selectLoginError } from "./_selectors";
+
 import { GlobalLayout } from "core/components/Layout/GlobalLayout";
 import { Login, getLoginFormStyles } from "core/features/login/Component.styles";
-import { loginAction } from "./_actions";
 
-const Component = (props: any) => {
-  const classesLoginForm = getLoginFormStyles();
+const Component = () => {
+  
+  const isLoggedIn: Boolean = useSelector(selectIsLoggedIn);
+  const errorMessage: String = useSelector(selectLoginError);
+  
+  const dispatch = useDispatch();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (event: any) => {
+  const classesLoginForm = getLoginFormStyles();
+
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
     if (username.length && password.length) {
-      props.loginAction(username, password);
+      dispatch(loginAction(username, password));
     }
   };
 
   return (
     <GlobalLayout fillWindow={true}>
-      {props.isLoggedIn ? (
+      {isLoggedIn ? (
         <Redirect to={CoreRoutes.DASHBOARD} />
       ) : (
         <Login>
@@ -51,8 +59,8 @@ const Component = (props: any) => {
               onChange={event => setPassword(event.target.value)}
             />
 
-            {props.error !== undefined && props.error.length ? (
-              <p id="errorMsg">{props.error}</p>
+            {errorMessage !== undefined && errorMessage.length ? (
+              <p id="errorMsg">{errorMessage}</p>
             ) : (
               <></>
             )}
@@ -67,15 +75,4 @@ const Component = (props: any) => {
   );
 };
 
-const mapDispatchToProps = {
-  loginAction: loginAction
-};
-
-function mapStateToProps(state: any) {
-  return {
-    isLoggedIn: state.loginReducer.isLoggedIn,
-    error: state.loginReducer.error
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Component);
+export default Component;
