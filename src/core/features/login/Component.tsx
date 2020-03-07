@@ -6,7 +6,7 @@ import { Button, TextField } from "@material-ui/core";
 
 import { CoreRoutes } from "core/routes";
 import { loginAction } from "./_actions";
-import { selectIsLoggedIn, selectLoginError } from "./_selectors";
+import { selectIsLoggedIn, selectLoginError } from "selectors";
 
 import { GlobalLayout } from "core/components/Layout/GlobalLayout";
 import { Login, getLoginFormStyles } from "core/features/login/Component.styles";

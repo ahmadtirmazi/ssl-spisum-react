@@ -1,16 +1,22 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-
-import { CoreRoutes } from "core/routes";
-import { SignedLayout } from "core/components/Layout/SignedLayout";
-import SimpleDialog from "core/components/dialog";
 
 import Button from "@material-ui/core/Button";
 
-const Component = (props: any) => {
-  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+import { CoreRoutes } from "core/routes";
+import { selectIsLoggedIn } from "selectors";
 
+import { SignedLayout } from "core/components/Layout/SignedLayout";
+import SimpleDialog from "core/components/dialog";
+
+
+const Component = () => {
+  
+  const isLoggedIn: Boolean = useSelector(selectIsLoggedIn);
+
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  
   const handleClickOpen = () => {
     setIsDialogOpen(true);
   };
@@ -22,7 +28,7 @@ const Component = (props: any) => {
 
   return (
     <SignedLayout>
-      {!props.isLoggedIn ? (
+      {!isLoggedIn ? (
         <Redirect to={CoreRoutes.LOGIN} />
       ) : (
         <div>
@@ -64,10 +70,4 @@ const Component = (props: any) => {
   );
 };
 
-function mapStateToProps(state: any) {
-  return {
-    isLoggedIn: state.loginReducer.isLoggedIn
-  };
-}
-
-export default connect(mapStateToProps, null)(Component);
+export default Component;
